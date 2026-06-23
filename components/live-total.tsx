@@ -1,0 +1,5 @@
+"use client";
+import { useEffect, useState } from "react";
+import { money, PRICE } from "@/lib/orders";
+const prices: Record<string, number> = { dinners: PRICE.dinner, empanadaGriot: PRICE.empanada, empanadaBeef: PRICE.empanada, empanadaChicken: PRICE.empanada, lemonadeClassic: PRICE.classic, lemonadeFlavored: PRICE.flavored, lemonadeBottle: PRICE.bottle };
+export function LiveTotal() { const [total, setTotal] = useState(0); useEffect(() => { const update = () => setTotal(Object.entries(prices).reduce((sum, [name, price]) => sum + Math.max(0, Number((document.querySelector(`[name=${name}]`) as HTMLInputElement | null)?.value || 0)) * price, 0)); update(); document.addEventListener("input", update); return () => document.removeEventListener("input", update); }, []); return <div className="rounded-xl bg-stone-50 p-4"><p className="text-xs font-bold uppercase tracking-wide text-stone-500">Estimated total due</p><p className="mt-1 text-3xl font-black">{money(total)}</p><p className="mt-1 text-xs text-stone-500">Final total is saved with your preorder.</p></div>; }

@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base { * { @apply border-stone-200; } body { @apply bg-[#f8f5ed] text-[#183f40] antialiased; } h1,h2,h3,.font-display { font-family: ui-rounded, "Avenir Next", Avenir, sans-serif; } input, select, textarea { @apply w-full rounded-xl border-stone-300 bg-white px-3 py-2.5 text-sm outline-none ring-[#d6ab44] focus:ring-2; } }
+@layer components { .card { @apply rounded-2xl border border-[#e4e0d6] bg-white p-5 shadow-[0_2px_4px_rgba(23,36,51,.06)]; } .btn { @apply inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-bold transition hover:brightness-95 disabled:opacity-50; } .btn-primary { @apply btn bg-[#145353] text-white; } .btn-secondary { @apply btn bg-[#183f40] text-white; } .label { @apply mb-1.5 block text-sm font-bold text-stone-700; } .pill { @apply inline-flex rounded-full px-2.5 py-1 text-xs font-bold; } }
+.admin-shell { min-height:100vh; background:#fcfaf3; }
+.admin-sidebar { position:fixed; inset:0 auto 0 0; display:flex; width:272px; flex-direction:column; background:#172a3b; padding:28px 16px; color:#f8f4ea; }
+.brand-lockup { display:flex; align-items:center; gap:12px; padding:0 2px 26px; color:inherit; }
+.brand-lockup strong { display:block; font-family:Georgia,serif; font-size:17px; line-height:1.1; }.brand-lockup small{display:block;color:#aeb8c0;font-size:12px;margin-top:3px}.brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#dcb34b;color:#172a3b;font-family:Georgia,serif;font-weight:800}
+.admin-links { display:grid; gap:5px; }.admin-links a,.admin-settings { display:flex; align-items:center; gap:12px; border-radius:9px; padding:11px 10px; color:#c7cdd2; font-size:15px; font-weight:650; }.admin-links a:hover,.admin-links a:first-child { background:#294055; color:#fff; }.admin-settings{color:#c7cdd2}
+.admin-main { margin-left:272px; min-height:100vh; padding:34px 40px; }
+.metric-card { min-height:116px; border:1px solid #e4e0d6; border-radius:17px; background:#fff; padding:20px; box-shadow:0 2px 4px rgba(23,36,51,.05); }.metric-label{font-size:12px;font-weight:700;text-transform:uppercase;color:#637083}.metric-value{margin-top:8px;font-family:Georgia,serif;font-size:27px;font-weight:700;color:#172433}.metric-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:#edf4f0;color:#007146}
+@media(max-width:800px){.admin-sidebar{position:static;width:auto;min-height:0;padding:16px;}.admin-sidebar .admin-links{display:flex;overflow:auto}.admin-sidebar .admin-links a{white-space:nowrap}.admin-sidebar .mt-auto{display:none}.brand-lockup{padding-bottom:12px}.admin-main{margin-left:0;padding:24px 16px}}

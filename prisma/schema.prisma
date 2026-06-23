@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum PickupDay {
+  THURSDAY
+  FRIDAY
+  NO_PREFERENCE
+}
+
+enum PaymentMethod {
+  CASH_APP
+  ZELLE
+  VENMO
+  APPLE_PAY
+  CASH_AT_PICKUP
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+  PARTIAL
+  CASH_AT_PICKUP
+}
+
+enum OrderStatus {
+  NEW
+  CONFIRMED
+  PREPARING
+  READY
+  PICKED_UP
+  CANCELLED
+}
+
+model Order {
+  id String @id @default(cuid())
+  firstName String
+  lastName String
+  phone String
+  email String?
+  dinners Int @default(0)
+  empanadaGriot Int @default(0)
+  empanadaBeef Int @default(0)
+  empanadaChicken Int @default(0)
+  lemonadeClassic Int @default(0)
+  lemonadeFlavored Int @default(0)
+  lemonadeBottle Int @default(0)
+  notes String?
+  adminNotes String?
+  pickupDay PickupDay @default(NO_PREFERENCE)
+  pickupWindow String?
+  paymentMethod PaymentMethod
+  paymentStatus PaymentStatus @default(UNPAID)
+  status OrderStatus @default(NEW)
+  totalCents Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  activities Activity[]
+}
+model Activity {
+  id String @id @default(cuid())
+  orderId String
+  message String
+  createdAt DateTime @default(now())
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model CrewMember {
+  id          String            @id @default(cuid())
+  name        String            @unique
+  color       String            @default("#3B82C4")
+  assignments ChoreAssignment[]
+  completions ChoreCompletion[]
+}
+
+model ChoreZone {
+  id          String            @id @default(cuid())
+  code        String            @unique
+  name        String
+  description String
+  color       String
+  tasks       ZoneTask[]
+  assignments ChoreAssignment[]
+}
+
+model ZoneTask {
+  id        String    @id @default(cuid())
+  zoneId    String
+  title     String
+  position  Int       @default(0)
+  zone      ChoreZone @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  completions ChoreCompletion[]
+}
+
+model ChoreAssignment {
+  id         String      @id @default(cuid())
+  date       String
+  memberId   String
+  zoneId     String
+  ownSpace   Boolean     @default(false)
+  zoneDone   Boolean     @default(false)
+  parentOk   Boolean     @default(false)
+  member     CrewMember  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  zone       ChoreZone   @relation(fields: [zoneId], references: [id], onDelete: Cascade)
+  completions ChoreCompletion[]
+
+  @@unique([date, memberId])
+}
+
+model ChoreCompletion {
+  id           String          @id @default(cuid())
+  assignmentId String
+  taskId       String
+  memberId     String
+  done         Boolean         @default(false)
+  assignment   ChoreAssignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  task         ZoneTask        @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  member       CrewMember      @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([assignmentId, taskId])
+}
