@@ -2,7 +2,9 @@
 
 A responsive chore app built from the MJ Crew Home Chore Chart. Family members choose their name, check off zone tasks, and complete the daily finish line. An admin PIN protects assignment changes, parent sign-off, and editing the crew and zone task lists.
 
-Run locally with `npm run dev`, then open `http://localhost:3000`. The local admin PIN is set in `.env`.
+The production app uses a hosted PostgreSQL database. Set `DATABASE_URL`, `ADMIN_PIN`, and `SESSION_SECRET` before deploying. Run locally with `npm run dev`, then open `http://localhost:3000`.
+
+For Vercel, the included build configuration creates the database tables during deployment. The initial crew, zones, and task lists are created automatically on the first visit.
 
 ## Stack
 

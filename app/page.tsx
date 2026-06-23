@@ -2,6 +2,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { ChoreBoard } from "@/components/chore-board";
 
+export const dynamic = "force-dynamic";
+
 const zones = [
   ["A", "Kitchen + Dishes", "Counters, dishes, sink, table, quick kitchen sweep.", "#EAB528", ["Clear counters + kitchen table", "Load or unload dishwasher", "Wash or soak large pans", "Wipe counters, stove, sink", "Sweep kitchen floor", "Check kitchen trash"]],
   ["B", "Main Floor Reset", "Family room, gathering/dining space, entry/drop zone.", "#4B8E68", ["Reset seating and pillows", "Clear dining/gathering table", "Return shoes, bags, toys, books", "Wipe visible surfaces", "Straighten entry/drop zone", "Final walk-through"]],
